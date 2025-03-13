@@ -63,18 +63,28 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	// Draw function
 	function draw() {
-		// Add semi-transparent black rectangle to create fade effect
-		ctx.fillStyle = 'rgba(25, 25, 25, 0.05)';
+		// Create a black overlay with slight transparency
+		ctx.fillStyle = 'rgba(30, 30, 46, 0.08)'; // Catppuccin base color
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		
-		// Set text color and font
-		ctx.fillStyle = 'rgba(189, 147, 249, 0.3)'; // Using terminal accent color with opacity
+		// Set text color and font - using the lavender accent color
+		ctx.fillStyle = 'rgba(180, 190, 254, 0.4)'; // Lavender
 		ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
 		
 		// Loop through drops
 		for (let i = 0; i < drops.length; i++) {
 			// Select a random character
 			const text = linuxChars[Math.floor(Math.random() * linuxChars.length)];
+			
+			// Randomly choose between Catppuccin colors for variety
+			const rand = Math.random();
+			if (rand > 0.7) {
+				ctx.fillStyle = 'rgba(245, 194, 231, 0.4)'; // Pink
+			} else if (rand > 0.4) {
+				ctx.fillStyle = 'rgba(203, 166, 247, 0.4)'; // Mauve
+			} else {
+				ctx.fillStyle = 'rgba(180, 190, 254, 0.4)'; // Lavender
+			}
 			
 			// Draw the character
 			ctx.fillText(text, i * fontSize, drops[i] * fontSize);

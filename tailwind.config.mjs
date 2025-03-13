@@ -6,34 +6,20 @@ export default {
 		extend: {
 			colors: {
 				terminal: {
-					100: '#f8f8f2',
-					200: '#bd93f9',
-					300: '#50fa7b',
-					400: '#ff79c6',
-					500: '#8be9fd',
-					600: '#44475a',
-					700: '#282a36',
-					800: '#1e1e1e',
-					900: '#191919',
-					accent: '#bd93f9',
+					100: '#cdd6f4', // Text
+					200: '#b4befe', // Lavender
+					300: '#f5c2e7', // Pink
+					400: '#cba6f7', // Mauve
+					500: '#89dceb', // Sky
+					600: '#45475a', // Surface1
+					700: '#313244', // Surface0
+					800: '#1e1e2e', // Base
+					900: '#181825', // Mantle
+					accent: '#b4befe', // Lavender accent
 				},
 			},
 			fontFamily: {
 				mono: ['JetBrains Mono', 'monospace'],
-			},
-			animation: {
-				'terminal-blink': 'blink 1s step-end infinite',
-				'terminal-type': 'type 3s steps(40, end)',
-			},
-			keyframes: {
-				blink: {
-					'0%, 100%': { borderColor: 'transparent' },
-					'50%': { borderColor: 'currentColor' },
-				},
-				type: {
-					'0%': { width: '0' },
-					'100%': { width: '100%' },
-				},
 			},
 			screens: {
 				'sm': '640px',
