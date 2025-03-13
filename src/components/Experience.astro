@@ -1,0 +1,120 @@
+---
+const experiences = [
+  {
+    title: 'Senior DevOps Engineer',
+    company: 'Fortude Sri Lanka',
+    period: '2022 - Present',
+    type: 'Full-time',
+    highlights: [
+      'Led cloud infrastructure modernization initiatives reducing operational costs by 35%',
+      'Implemented GitOps practices improving deployment reliability by 99.9%',
+      'Architected and deployed multi-region Kubernetes clusters serving 100K+ users',
+      'Mentored junior engineers in DevOps practices and cloud architecture'
+    ]
+  },
+  {
+    title: 'Cloud Architecture Consultant',
+    company: 'IRIS UK',
+    period: '2021 - Present',
+    type: 'Contract',
+    highlights: [
+      'Designed scalable cloud architectures for enterprise clients',
+      'Implemented infrastructure as code practices using Terraform',
+      'Optimized cloud costs saving clients average of 40% on cloud spend',
+      'Established security best practices and compliance frameworks'
+    ]
+  },
+  {
+    title: 'DevOps Engineer',
+    company: 'Tech Innovators',
+    period: '2019 - 2021',
+    type: 'Full-time',
+    highlights: [
+      'Built and maintained CI/CD pipelines for microservices architecture',
+      'Automated deployment processes reducing release time by 60%',
+      'Implemented monitoring and alerting systems using Prometheus and Grafana',
+      'Managed container orchestration using Kubernetes'
+    ]
+  }
+];
+---
+
+<section id="experience" class="mb-12">
+  <div class="terminal-body">
+    <div class="flex flex-col md:flex-row gap-4 items-center">
+      <span class="terminal-prompt">kavintha@devops</span>
+      <span class="terminal-command">git log --pretty=format:'%s' --graph</span>
+    </div>
+    
+    <div class="terminal-output">
+      <div class="space-y-8">
+        {experiences.map((exp, index) => (
+          <div class="terminal-card group relative">
+            {index !== experiences.length - 1 && (
+              <div class="absolute left-8 top-[95%] w-0.5 h-8 bg-terminal-700 z-0"></div>
+            )}
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-16 h-16 rounded-lg bg-terminal-800 flex items-center justify-center border border-terminal-700 group-hover:border-terminal-accent transition-colors">
+                <i class="fas fa-code-branch text-2xl text-terminal-accent group-hover:text-terminal-300"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                  <h3 class="text-xl font-bold text-terminal-300">{exp.title}</h3>
+                  <span class="text-terminal-100/50 md:before:content-['|'] md:before:mx-2">{exp.company}</span>
+                  <span class="text-terminal-accent text-sm">{exp.period}</span>
+                  <span class="text-terminal-100/30 text-sm before:content-['•'] before:mx-2">{exp.type}</span>
+                </div>
+                <ul class="space-y-2 mt-4">
+                  {exp.highlights.map(highlight => (
+                    <li class="flex items-start gap-2 group/item">
+                      <i class="fas fa-chevron-right text-terminal-accent mt-1.5 group-hover/item:text-terminal-300"></i>
+                      <span class="text-terminal-100/90">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 terminal-card">
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fas fa-star text-terminal-accent"></i>
+          <span class="text-terminal-300 font-semibold">Key Achievements</span>
+        </div>
+        <ul class="space-y-3 text-terminal-100/80">
+          <li class="flex items-start gap-2">
+            <i class="fas fa-trophy text-terminal-accent mt-1"></i>
+            <span>Led successful migration of 50+ applications to Kubernetes</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fas fa-trophy text-terminal-accent mt-1"></i>
+            <span>Reduced infrastructure costs by 45% through optimization</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fas fa-trophy text-terminal-accent mt-1"></i>
+            <span>Implemented zero-downtime deployment strategies</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .terminal-card {
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

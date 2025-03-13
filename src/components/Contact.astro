@@ -1,0 +1,128 @@
+---
+const socialLinks = [
+  {
+    platform: 'GitHub',
+    url: 'https://github.com/kavintha',
+    icon: 'fa-github',
+    username: '@kavintha'
+  },
+  {
+    platform: 'LinkedIn',
+    url: 'https://linkedin.com/in/kavintha',
+    icon: 'fa-linkedin',
+    username: 'kavintha'
+  },
+  {
+    platform: 'Twitter',
+    url: 'https://twitter.com/kavintha',
+    icon: 'fa-twitter',
+    username: '@kavintha'
+  }
+];
+---
+
+<section id="contact" class="mb-12">
+  <div class="terminal-body">
+    <div class="flex flex-col md:flex-row gap-4 items-center">
+      <span class="terminal-prompt">kavintha@devops</span>
+      <span class="terminal-command">./connect.sh --open-channels</span>
+    </div>
+    
+    <div class="terminal-output">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="terminal-card group">
+          <h3 class="text-terminal-300 text-lg font-semibold mb-4 flex items-center gap-2">
+            <i class="fas fa-envelope text-terminal-accent"></i>
+            Get in Touch
+          </h3>
+          <p class="text-terminal-100/80 mb-6">
+            I'm always interested in new opportunities, collaborations, and interesting projects. Feel free to reach out!
+          </p>
+          <a
+            href="mailto:hello@kavintha.dev"
+            class="inline-flex items-center gap-2 terminal-link"
+          >
+            <i class="fas fa-paper-plane text-terminal-accent"></i>
+            <span>hello@kavintha.dev</span>
+          </a>
+        </div>
+
+        <div class="terminal-card group">
+          <h3 class="text-terminal-300 text-lg font-semibold mb-4 flex items-center gap-2">
+            <i class="fas fa-link text-terminal-accent"></i>
+            Social Links
+          </h3>
+          <div class="space-y-4">
+            {socialLinks.map(({ platform, url, icon, username }) => (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-3 terminal-link group/link"
+              >
+                <i class={`fab ${icon} text-terminal-accent group-hover/link:text-terminal-300 w-5`}></i>
+                <span class="flex-1">{platform}</span>
+                <span class="text-terminal-100/50">{username}</span>
+                <i class="fas fa-external-link-alt text-terminal-100/30 group-hover/link:text-terminal-300"></i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 terminal-card">
+        <div class="flex items-center gap-2 mb-4">
+          <i class="fas fa-code text-terminal-accent"></i>
+          <span class="text-terminal-300 font-semibold">Open Source</span>
+        </div>
+        <p class="text-terminal-100/80 mb-4">
+          Check out my open-source contributions and personal projects on GitHub. I'm passionate about sharing knowledge and contributing to the community.
+        </p>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://github.com/kavintha?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="terminal-link flex items-center gap-2"
+          >
+            <i class="fas fa-code-branch text-terminal-accent"></i>
+            <span>View Projects</span>
+          </a>
+          <a
+            href="https://github.com/kavintha?tab=repositories&type=source"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="terminal-link flex items-center gap-2"
+          >
+            <i class="fas fa-star text-terminal-accent"></i>
+            <span>Star Repositories</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .terminal-link {
+    @apply hover:bg-terminal-800/50;
+  }
+
+  .terminal-card {
+    animation: pulseIn 0.5s ease-out;
+  }
+
+  @keyframes pulseIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    70% {
+      transform: scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>

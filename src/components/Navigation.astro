@@ -1,0 +1,37 @@
+---
+const navItems = [
+  { path: '#about', label: '~/about', icon: 'fa-user' },
+  { path: '#experience', label: '~/experience', icon: 'fa-code-branch' },
+  { path: '#skills', label: '~/skills', icon: 'fa-terminal' },
+  { path: '#contact', label: '~/contact', icon: 'fa-envelope' },
+];
+---
+
+<nav class="mb-8">
+  <div class="terminal-body">
+    <div class="flex flex-col md:flex-row items-center gap-4">
+      <div class="flex items-center gap-2">
+        <span class="terminal-prompt">kavintha@devops</span>
+        <span class="terminal-command">ls -la sections/</span>
+      </div>
+      <div class="hidden md:block text-terminal-100/50">|</div>
+      <div class="text-terminal-100/50 text-sm">
+        total {navItems.length}
+      </div>
+    </div>
+    <div class="terminal-output grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+      {navItems.map(({ path, label, icon }) => (
+        <a
+          href={path}
+          class="terminal-link group flex items-center gap-3 hover:bg-terminal-800/50"
+        >
+          <i class={`fas ${icon} text-terminal-accent group-hover:text-terminal-300 w-5`}></i>
+          <span class="flex-1">{label}</span>
+          <span class="text-terminal-100/50 group-hover:text-terminal-300">
+            <i class="fas fa-chevron-right"></i>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
