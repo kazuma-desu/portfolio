@@ -14,7 +14,7 @@ const skillCategories = [
   },
   {
     title: 'Operating Systems',
-    icon: 'fa-linux',
+    icon: 'fa-solid fa-server',
     skills: [
       { name: 'Linux Administration', level: 95 },
       { name: 'Shell Scripting', level: 90 },
@@ -57,7 +57,10 @@ const skillCategories = [
         {skillCategories.map(category => (
           <div class="terminal-card group">
             <h3 class="text-terminal-300 text-lg font-semibold mb-4 flex items-center gap-2">
-              <i class={`fas ${category.icon} text-terminal-accent`}></i>
+              {category.icon.includes('fa-brands') ? 
+                <i class={`fab ${category.icon.replace('fa-brands ', '')} text-terminal-accent`}></i> :
+                <i class={`fas ${category.icon} text-terminal-accent`}></i>
+              }
               {category.title}
             </h3>
             <div class="space-y-4">

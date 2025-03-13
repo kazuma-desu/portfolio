@@ -32,8 +32,22 @@ const { title } = Astro.props;
 <script>
 // Matrix-like code rain animation
 document.addEventListener('DOMContentLoaded', function() {
-	const canvas = document.getElementById('matrix-bg');
-	const ctx = canvas.getContext('2d');
+	const canvas = document.getElementById('matrix-bg') as HTMLCanvasElement | null;
+	
+	// Add null check to ensure canvas exists
+	if (!canvas) {
+		console.error('Canvas element not found');
+		return;
+	}
+	
+	// Use non-null assertion to tell TypeScript that getContext will not return null
+	const ctx = canvas.getContext('2d')!;
+	
+	// Add null check for context
+	if (!ctx) {
+		console.error('Could not get 2D context from canvas');
+		return;
+	}
 
 	// Set canvas size to window size
 	canvas.width = window.innerWidth;
@@ -54,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const columns = Math.floor(canvas.width / fontSize);
 	
 	// Array to track the y position of each column
-	const drops = [];
+	const drops: number[] = [];
 	
 	// Initialize drops
 	for (let i = 0; i < columns; i++) {
@@ -65,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function draw() {
 		// Create a black overlay with slight transparency
 		ctx.fillStyle = 'rgba(30, 30, 46, 0.08)'; // Catppuccin base color
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.fillRect(0, 0, canvas!.width, canvas!.height);
 		
 		// Set text color and font - using the lavender accent color
 		ctx.fillStyle = 'rgba(180, 190, 254, 0.4)'; // Lavender
@@ -93,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			drops[i]++;
 			
 			// If drop reaches bottom or randomly, reset to top
-			if (drops[i] * fontSize > canvas.height || Math.random() > 0.99) {
+			if (drops[i] * fontSize > canvas!.height! || Math.random() > 0.99) {
 				drops[i] = 0;
 			}
 		}
@@ -104,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	// Resize canvas when window is resized
 	window.addEventListener('resize', function() {
+		// Since we've already checked that canvas exists at the beginning of the function
+		// and we're in the same scope, we can safely use non-null assertion
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
 		
