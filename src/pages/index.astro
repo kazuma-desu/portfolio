@@ -12,7 +12,7 @@ import Contact from '../components/Contact.astro';
 ---
 
 <Layout title="Kavintha Kulasingham | DevOps Engineer">
-  <main class="min-h-screen py-8">
+  <main class="min-h-screen py-12 px-4">
     <div class="terminal-window">
       <TerminalHeader />
       <div class="terminal-body">
@@ -28,10 +28,11 @@ import Contact from '../components/Contact.astro';
 
 <script>
   // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
+    anchor.addEventListener('click', (e: Event) => {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const href = (anchor as HTMLAnchorElement).getAttribute('href') || '';
+      const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({
           behavior: 'smooth',
