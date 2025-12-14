@@ -1,9 +1,29 @@
 ---
 const navItems = [
-  { path: '#about', label: '~/about', icon: 'fa-user' },
-  { path: '#experience', label: '~/experience', icon: 'fa-code-branch' },
-  { path: '#skills', label: '~/skills', icon: 'fa-terminal' },
-  { path: '#contact', label: '~/contact', icon: 'fa-envelope' },
+  {
+    path: "#about",
+    label: "~/about",
+    icon: "fa-user",
+    iconColor: "text-terminal-accent",
+  },
+  {
+    path: "#experience",
+    label: "~/experience",
+    icon: "fa-code-branch",
+    iconColor: "text-terminal-blue",
+  },
+  {
+    path: "#skills",
+    label: "~/skills",
+    icon: "fa-terminal",
+    iconColor: "text-terminal-teal",
+  },
+  {
+    path: "#contact",
+    label: "~/contact",
+    icon: "fa-envelope",
+    iconColor: "text-terminal-peach",
+  },
 ];
 ---
 
@@ -19,19 +39,81 @@ const navItems = [
         total {navItems.length}
       </div>
     </div>
-    <div class="terminal-output grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-      {navItems.map(({ path, label, icon }) => (
-        <a
-          href={path}
-          class="terminal-link group flex items-center gap-3 hover:bg-terminal-800/50"
-        >
-          <i class={`fas ${icon} text-terminal-accent group-hover:text-terminal-300 w-5`}></i>
-          <span class="flex-1">{label}</span>
-          <span class="text-terminal-100/50 group-hover:text-terminal-300">
-            <i class="fas fa-chevron-right"></i>
-          </span>
-        </a>
-      ))}
+    <div
+      class="terminal-output grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4"
+    >
+      {
+        navItems.map(({ path, label, icon, iconColor }) => (
+          <a
+            href={path}
+            data-nav-link={path}
+            class="nav-link terminal-link group flex items-center gap-3 hover:bg-terminal-800/50 relative min-h-[44px]"
+          >
+            <i
+              class={`fas ${icon} ${iconColor} group-hover:text-terminal-300 w-5`}
+            />
+            <span class="flex-1">{label}</span>
+            <span class="text-terminal-100/50 group-hover:text-terminal-300">
+              <i class="fas fa-chevron-right" />
+            </span>
+            <span class="nav-indicator absolute left-0 top-0 w-1 h-full bg-terminal-accent opacity-0 transition-opacity duration-150" />
+          </a>
+        ))
+      }
     </div>
   </div>
 </nav>
+
+<script>
+  // Scroll spy functionality
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll("[data-nav-link]");
+
+      const observerOptions = {
+        rootMargin: "-20% 0px -70% 0px",
+        threshold: 0,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = `#${entry.target.id}`;
+
+            // Remove active class from all links
+            navLinks.forEach((link) => {
+              const indicator = link.querySelector(".nav-indicator");
+              if (indicator) {
+                (indicator as HTMLElement).style.opacity = "0";
+              }
+              link.classList.remove("active-nav");
+            });
+
+            // Add active class to current link
+            const activeLink = document.querySelector(
+              `[data-nav-link="${sectionId}"]`,
+            );
+            if (activeLink) {
+              const indicator = activeLink.querySelector(".nav-indicator");
+              if (indicator) {
+                (indicator as HTMLElement).style.opacity = "1";
+              }
+              activeLink.classList.add("active-nav");
+            }
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+    });
+  }
+</script>
+
+<style>
+  .nav-link.active-nav {
+    @apply bg-terminal-800/50 border-terminal-accent/50;
+  }
+</style>
