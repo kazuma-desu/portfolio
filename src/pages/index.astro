@@ -6,6 +6,7 @@ import Hero from '../components/Hero.astro';
 import Skills from '../components/Skills.astro';
 import Experience from '../components/Experience.astro';
 import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -18,10 +19,14 @@ import Contact from '../components/Contact.astro';
       <div class="terminal-body">
         <Navigation />
         <Hero />
+        <div class="section-divider"></div>
         <Skills />
+        <div class="section-divider"></div>
         <Experience />
+        <div class="section-divider"></div>
         <Contact />
       </div>
+      <Footer />
     </div>
   </main>
 </Layout>
@@ -42,10 +47,41 @@ import Contact from '../components/Contact.astro';
     });
   });
 
-  // Make all sections visible immediately instead of using fade-in animations
+  // Intersection Observer for scroll-based animations
   document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.fade-in').forEach((el) => {
-      el.classList.add('visible');
+    // Create observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // Add stagger delay based on index
+          const element = entry.target as HTMLElement;
+          const delay = parseInt(element.dataset.delay || '0');
+
+          setTimeout(() => {
+            element.classList.add('animate-in');
+          }, delay);
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards with stagger effect
+    document.querySelectorAll('.terminal-card, .terminal-card-alt, .terminal-card-success, .terminal-card-highlight').forEach((card, index) => {
+      (card as HTMLElement).dataset.delay = (index * 50).toString();
+      card.classList.add('fade-out');
+      observer.observe(card);
+    });
+
+    // Observe sections
+    document.querySelectorAll('section').forEach((section) => {
+      section.classList.add('fade-out');
+      observer.observe(section);
     });
   });
 </script>

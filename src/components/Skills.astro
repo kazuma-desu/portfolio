@@ -1,47 +1,51 @@
 ---
 const skillCategories = [
   {
-    title: 'DevOps & Cloud',
-    icon: 'fa-cloud',
+    title: "DevOps & Cloud",
+    icon: "fa-cloud",
+    iconColor: "text-terminal-blue",
     skills: [
-      { name: 'AWS', level: 90 },
-      { name: 'Docker', level: 95 },
-      { name: 'Kubernetes', level: 85 },
-      { name: 'Terraform', level: 90 },
-      { name: 'Jenkins', level: 85 },
-      { name: 'GitLab CI', level: 80 },
-    ]
+      { name: "AWS", level: 90 },
+      { name: "Docker", level: 95 },
+      { name: "Kubernetes", level: 85 },
+      { name: "Terraform", level: 90 },
+      { name: "Jenkins", level: 85 },
+      { name: "GitLab CI", level: 80 },
+    ],
   },
   {
-    title: 'Operating Systems',
-    icon: 'fa-solid fa-server',
+    title: "Operating Systems",
+    icon: "fa-solid fa-server",
+    iconColor: "text-terminal-teal",
     skills: [
-      { name: 'Linux Administration', level: 95 },
-      { name: 'Shell Scripting', level: 90 },
-      { name: 'System Performance', level: 85 },
-      { name: 'Security Hardening', level: 80 },
-    ]
+      { name: "Linux Administration", level: 95 },
+      { name: "Shell Scripting", level: 90 },
+      { name: "System Performance", level: 85 },
+      { name: "Security Hardening", level: 80 },
+    ],
   },
   {
-    title: 'Programming',
-    icon: 'fa-code',
+    title: "Programming",
+    icon: "fa-code",
+    iconColor: "text-terminal-blue",
     skills: [
-      { name: 'Python', level: 85 },
-      { name: 'Go', level: 75 },
-      { name: 'JavaScript', level: 80 },
-      { name: 'Bash', level: 90 },
-    ]
+      { name: "Python", level: 85 },
+      { name: "Go", level: 75 },
+      { name: "JavaScript", level: 80 },
+      { name: "Bash", level: 90 },
+    ],
   },
   {
-    title: 'Monitoring & Security',
-    icon: 'fa-shield-halved',
+    title: "Monitoring & Security",
+    icon: "fa-shield-halved",
+    iconColor: "text-terminal-peach",
     skills: [
-      { name: 'Prometheus', level: 85 },
-      { name: 'Grafana', level: 80 },
-      { name: 'ELK Stack', level: 75 },
-      { name: 'AWS Security', level: 85 },
-    ]
-  }
+      { name: "Prometheus", level: 85 },
+      { name: "Grafana", level: 80 },
+      { name: "ELK Stack", level: 75 },
+      { name: "AWS Security", level: 85 },
+    ],
+  },
 ];
 ---
 
@@ -51,43 +55,48 @@ const skillCategories = [
       <span class="terminal-prompt">kavintha@devops</span>
       <span class="terminal-command">./list-skills.sh --format=detailed</span>
     </div>
-    
+
     <div class="terminal-output">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {skillCategories.map(category => (
-          <div class="terminal-card group">
-            <h3 class="text-terminal-300 text-lg font-semibold mb-4 flex items-center gap-2">
-              {category.icon.includes('fa-brands') ? 
-                <i class={`fab ${category.icon.replace('fa-brands ', '')} text-terminal-accent`}></i> :
-                <i class={`fas ${category.icon} text-terminal-accent`}></i>
-              }
-              {category.title}
-            </h3>
-            <div class="space-y-4">
-              {category.skills.map(skill => (
-                <div class="space-y-1">
-                  <div class="flex justify-between items-center text-sm">
-                    <span class="text-terminal-100">{skill.name}</span>
-                    <span class="text-terminal-accent">{skill.level}%</span>
-                  </div>
-                  <div class="h-2 bg-terminal-800 rounded-full overflow-hidden">
-                    <div
-                      class="h-full bg-terminal-accent transition-all duration-500 group-hover:bg-terminal-300"
-                      style={`width: ${skill.level}%`}
-                    >
+        {
+          skillCategories.map((category) => (
+            <div class="terminal-card group">
+              <h3 class="text-terminal-300 text-lg font-semibold mb-4 flex items-center gap-2">
+                {category.icon.includes("fa-brands") ? (
+                  <i
+                    class={`fab ${category.icon.replace("fa-brands ", "")} ${category.iconColor}`}
+                  />
+                ) : (
+                  <i class={`fas ${category.icon} ${category.iconColor}`} />
+                )}
+                {category.title}
+              </h3>
+              <div class="space-y-4">
+                {category.skills.map((skill) => (
+                  <div class="space-y-1">
+                    <div class="flex justify-between items-center text-sm">
+                      <span class="text-terminal-100">{skill.name}</span>
+                      <span class="text-terminal-accent">{skill.level}%</span>
+                    </div>
+                    <div class="h-2 bg-terminal-800 rounded-full overflow-hidden">
+                      <div
+                        class="skill-bar h-full bg-gradient-to-r from-terminal-accent to-terminal-300 transition-all duration-500 group-hover:from-terminal-300 group-hover:to-terminal-accent"
+                        data-width={skill.level}
+                        style="width: 0%"
+                      />
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
-      <div class="mt-8 terminal-card">
+      <div class="mt-8 terminal-card-highlight">
         <div class="flex items-center gap-2 mb-4">
-          <i class="fas fa-info-circle text-terminal-accent"></i>
-          <span class="text-terminal-300 font-semibold">Additional Information</span>
+          <i class="fas fa-certificate text-terminal-yellow"></i>
+          <h3 class="text-terminal-yellow font-semibold">Certifications</h3>
         </div>
         <div class="text-terminal-100/80 space-y-2">
           <p>• Certified AWS Solutions Architect Professional</p>
@@ -100,7 +109,44 @@ const skillCategories = [
   </div>
 </section>
 
+<script>
+  // Animate skill bars on scroll
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      const skillBars = document.querySelectorAll(".skill-bar");
+
+      const skillObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const bar = entry.target as HTMLElement;
+              const targetWidth = bar.dataset.width || "0";
+
+              setTimeout(() => {
+                bar.style.width = `${targetWidth}%`;
+              }, 50);
+
+              skillObserver.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.5,
+        },
+      );
+
+      skillBars.forEach((bar) => {
+        skillObserver.observe(bar);
+      });
+    });
+  }
+</script>
+
 <style>
+  .skill-bar {
+    transition: width 0.6s ease-out;
+  }
+
   .terminal-card {
     animation: fadeIn 0.5s ease-out;
   }

@@ -1,0 +1,84 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mt-12 mb-0">
+  <div class="terminal-body !mb-0">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-terminal-100/60 text-sm">
+        <span class="terminal-prompt text-xs">kavintha@devops</span>
+        <span class="mx-2">~</span>
+        <span
+          >© {currentYear} Kavintha Kulasingham. Built with <i
+            class="fas fa-heart text-terminal-300 animate-pulse"></i> and <a
+            href="https://astro.build"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-terminal-accent hover:text-terminal-300 transition-colors"
+            >Astro</a
+          ></span
+        >
+      </div>
+
+      <button
+        id="back-to-top"
+        class="back-to-top-btn group flex items-center gap-2 px-4 py-2 bg-terminal-800/50 hover:bg-terminal-accent/20 border border-terminal-700 hover:border-terminal-accent rounded-lg transition-all duration-150 min-h-[44px] opacity-0 pointer-events-none"
+        aria-label="Back to top"
+      >
+        <i
+          class="fas fa-arrow-up text-terminal-blue group-hover:text-terminal-teal transition-colors"
+        ></i>
+        <span
+          class="text-terminal-100 group-hover:text-terminal-accent transition-colors"
+          >Back to Top</span
+        >
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Back to top button functionality
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      const backToTopBtn = document.getElementById("back-to-top");
+
+      if (backToTopBtn) {
+        // Show/hide button based on scroll position
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 500) {
+            backToTopBtn.classList.remove("opacity-0", "pointer-events-none");
+            backToTopBtn.classList.add("opacity-100");
+          } else {
+            backToTopBtn.classList.add("opacity-0", "pointer-events-none");
+            backToTopBtn.classList.remove("opacity-100");
+          }
+        });
+
+        // Scroll to top on click
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      }
+    });
+  }
+</script>
+
+<style>
+  .back-to-top-btn {
+    transition:
+      opacity 0.3s ease,
+      transform 0.15s ease;
+  }
+
+  .back-to-top-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .back-to-top-btn:active {
+    transform: translateY(0);
+  }
+</style>
