@@ -1,256 +1,344 @@
 ---
-import Hero from './Hero.astro';
-import Skills from './Skills.astro';
-import Experience from './Experience.astro';
-import Contact from './Contact.astro';
+import Hero from "./Hero.astro";
+import Skills from "./Skills.astro";
+import Experience from "./Experience.astro";
+import Contact from "./Contact.astro";
 ---
 
 <!-- About Window -->
 <div class="floating-window" id="window-about" data-window="about">
-  <div class="window-header" data-drag-handle>
-    <div class="flex items-center justify-between w-full">
-      <div class="flex gap-2">
-        <button class="terminal-dot terminal-dot-red cursor-pointer window-close" data-action="close" aria-label="Close window"></button>
-        <button class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize" data-action="minimize" aria-label="Minimize window"></button>
-        <button class="terminal-dot terminal-dot-green cursor-pointer window-maximize" data-action="maximize" aria-label="Maximize window"></button>
-      </div>
-      <div class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none">
-        kavintha@devops: ~/about
-      </div>
-      <div class="w-16"></div>
+    <div class="window-header" data-drag-handle>
+        <div class="flex items-center justify-between w-full">
+            <div class="flex gap-2">
+                <button
+                    class="terminal-dot terminal-dot-red cursor-pointer window-close"
+                    data-action="close"
+                    aria-label="Close window"></button>
+                <button
+                    class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize"
+                    data-action="minimize"
+                    aria-label="Minimize window"></button>
+                <button
+                    class="terminal-dot terminal-dot-green cursor-pointer window-maximize"
+                    data-action="maximize"
+                    aria-label="Maximize window"></button>
+            </div>
+            <div
+                class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none"
+            >
+                kavintha@devops: ~/about
+            </div>
+            <div class="w-16"></div>
+        </div>
     </div>
-  </div>
-  <div class="window-content">
-    <Hero />
-  </div>
+    <div class="window-content">
+        <div class="window-inner">
+            <Hero />
+        </div>
+    </div>
 </div>
 
 <!-- Skills Window -->
 <div class="floating-window" id="window-skills" data-window="skills">
-  <div class="window-header" data-drag-handle>
-    <div class="flex items-center justify-between w-full">
-      <div class="flex gap-2">
-        <button class="terminal-dot terminal-dot-red cursor-pointer window-close" data-action="close" aria-label="Close window"></button>
-        <button class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize" data-action="minimize" aria-label="Minimize window"></button>
-        <button class="terminal-dot terminal-dot-green cursor-pointer window-maximize" data-action="maximize" aria-label="Maximize window"></button>
-      </div>
-      <div class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none">
-        kavintha@devops: ~/skills
-      </div>
-      <div class="w-16"></div>
+    <div class="window-header" data-drag-handle>
+        <div class="flex items-center justify-between w-full">
+            <div class="flex gap-2">
+                <button
+                    class="terminal-dot terminal-dot-red cursor-pointer window-close"
+                    data-action="close"
+                    aria-label="Close window"></button>
+                <button
+                    class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize"
+                    data-action="minimize"
+                    aria-label="Minimize window"></button>
+                <button
+                    class="terminal-dot terminal-dot-green cursor-pointer window-maximize"
+                    data-action="maximize"
+                    aria-label="Maximize window"></button>
+            </div>
+            <div
+                class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none"
+            >
+                kavintha@devops: ~/skills
+            </div>
+            <div class="w-16"></div>
+        </div>
     </div>
-  </div>
-  <div class="window-content">
-    <Skills />
-  </div>
+    <div class="window-content">
+        <div class="window-inner">
+            <Skills />
+        </div>
+    </div>
 </div>
 
 <!-- Experience Window -->
 <div class="floating-window" id="window-experience" data-window="experience">
-  <div class="window-header" data-drag-handle>
-    <div class="flex items-center justify-between w-full">
-      <div class="flex gap-2">
-        <button class="terminal-dot terminal-dot-red cursor-pointer window-close" data-action="close" aria-label="Close window"></button>
-        <button class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize" data-action="minimize" aria-label="Minimize window"></button>
-        <button class="terminal-dot terminal-dot-green cursor-pointer window-maximize" data-action="maximize" aria-label="Maximize window"></button>
-      </div>
-      <div class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none">
-        kavintha@devops: ~/experience
-      </div>
-      <div class="w-16"></div>
+    <div class="window-header" data-drag-handle>
+        <div class="flex items-center justify-between w-full">
+            <div class="flex gap-2">
+                <button
+                    class="terminal-dot terminal-dot-red cursor-pointer window-close"
+                    data-action="close"
+                    aria-label="Close window"></button>
+                <button
+                    class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize"
+                    data-action="minimize"
+                    aria-label="Minimize window"></button>
+                <button
+                    class="terminal-dot terminal-dot-green cursor-pointer window-maximize"
+                    data-action="maximize"
+                    aria-label="Maximize window"></button>
+            </div>
+            <div
+                class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none"
+            >
+                kavintha@devops: ~/experience
+            </div>
+            <div class="w-16"></div>
+        </div>
     </div>
-  </div>
-  <div class="window-content">
-    <Experience />
-  </div>
+    <div class="window-content">
+        <div class="window-inner">
+            <Experience />
+        </div>
+    </div>
 </div>
 
 <!-- Contact Window -->
 <div class="floating-window" id="window-contact" data-window="contact">
-  <div class="window-header" data-drag-handle>
-    <div class="flex items-center justify-between w-full">
-      <div class="flex gap-2">
-        <button class="terminal-dot terminal-dot-red cursor-pointer window-close" data-action="close" aria-label="Close window"></button>
-        <button class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize" data-action="minimize" aria-label="Minimize window"></button>
-        <button class="terminal-dot terminal-dot-green cursor-pointer window-maximize" data-action="maximize" aria-label="Maximize window"></button>
-      </div>
-      <div class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none">
-        kavintha@devops: ~/contact
-      </div>
-      <div class="w-16"></div>
+    <div class="window-header" data-drag-handle>
+        <div class="flex items-center justify-between w-full">
+            <div class="flex gap-2">
+                <button
+                    class="terminal-dot terminal-dot-red cursor-pointer window-close"
+                    data-action="close"
+                    aria-label="Close window"></button>
+                <button
+                    class="terminal-dot terminal-dot-yellow cursor-pointer window-minimize"
+                    data-action="minimize"
+                    aria-label="Minimize window"></button>
+                <button
+                    class="terminal-dot terminal-dot-green cursor-pointer window-maximize"
+                    data-action="maximize"
+                    aria-label="Maximize window"></button>
+            </div>
+            <div
+                class="flex-1 text-center text-terminal-100/70 text-sm font-mono select-none"
+            >
+                kavintha@devops: ~/contact
+            </div>
+            <div class="w-16"></div>
+        </div>
     </div>
-  </div>
-  <div class="window-content">
-    <Contact />
-  </div>
+    <div class="window-content">
+        <div class="window-inner">
+            <Contact />
+        </div>
+    </div>
 </div>
 
 <style>
-  .floating-window {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 1200px;
-    max-height: 85vh;
-    background: linear-gradient(135deg, rgba(30, 30, 46, 0.98), rgba(24, 24, 37, 0.98));
-    border: 2px solid rgba(180, 190, 254, 0.3);
-    border-radius: 1rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(180, 190, 254, 0.2);
-    z-index: 1000;
-    display: none;
-    flex-direction: column;
-    opacity: 0;
-    animation: windowSlideIn 0.4s ease forwards;
-  }
-
-  .floating-window.active {
-    display: flex;
-  }
-
-  .floating-window.maximized {
-    width: 100vw;
-    max-width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    top: 0;
-    left: 0;
-    transform: none;
-    border-radius: 0;
-    transition: all 0.3s ease;
-  }
-
-  .floating-window.minimized .window-content {
-    display: none;
-  }
-
-  .floating-window.minimized {
-    max-height: auto;
-    height: auto;
-  }
-
-  @keyframes windowSlideIn {
-    from {
-      opacity: 0;
-      transform: translate(-50%, -48%) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-  }
-
-  .floating-window.closing {
-    animation: windowSlideOut 0.3s ease forwards;
-  }
-
-  @keyframes windowSlideOut {
-    from {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: translate(-50%, -48%) scale(0.95);
-    }
-  }
-
-  .window-header {
-    background: rgba(180, 190, 254, 0.1);
-    border-bottom: 1px solid rgba(180, 190, 254, 0.2);
-    padding: 0.75rem 1.5rem;
-    border-radius: 1rem 1rem 0 0;
-    cursor: move;
-    user-select: none;
-  }
-
-  .floating-window.maximized .window-header {
-    border-radius: 0;
-  }
-
-  .window-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 2rem;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(180, 190, 254, 0.3) rgba(180, 190, 254, 0.1);
-  }
-
-  .window-content::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .window-content::-webkit-scrollbar-track {
-    background: rgba(180, 190, 254, 0.05);
-  }
-
-  .window-content::-webkit-scrollbar-thumb {
-    background: rgba(180, 190, 254, 0.3);
-    border-radius: 5px;
-  }
-
-  .window-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(180, 190, 254, 0.4);
-  }
-
-  .terminal-dot {
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-  }
-
-  .terminal-dot:hover {
-    transform: scale(1.2);
-  }
-
-  .terminal-dot-red {
-    background: #f38ba8;
-  }
-
-  .terminal-dot-red:hover {
-    box-shadow: 0 0 8px rgba(243, 139, 168, 0.6);
-  }
-
-  .terminal-dot-yellow {
-    background: #f9e2af;
-  }
-
-  .terminal-dot-yellow:hover {
-    box-shadow: 0 0 8px rgba(249, 226, 175, 0.6);
-  }
-
-  .terminal-dot-green {
-    background: #a6e3a1;
-  }
-
-  .terminal-dot-green:hover {
-    box-shadow: 0 0 8px rgba(166, 227, 161, 0.6);
-  }
-
-  @media (max-width: 768px) {
     .floating-window {
-      width: 95%;
-      max-height: 90vh;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 1200px;
+        max-height: 85vh;
+        background: linear-gradient(
+            135deg,
+            rgba(26, 22, 37, 0.98),
+            rgba(15, 11, 20, 0.98)
+        );
+        border: 2px solid rgba(192, 176, 255, 0.3);
+        border-radius: 1rem;
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.5),
+            0 0 40px rgba(192, 176, 255, 0.2);
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        opacity: 0;
+        animation: windowSlideIn 0.4s ease forwards;
     }
 
-    .window-content {
-      padding: 1rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .floating-window {
-      animation: none;
-    }
-
-    .floating-window.closing {
-      animation: none;
+    .floating-window.active {
+        display: flex;
     }
 
     .floating-window.maximized {
-      transition: none;
+        width: 100vw;
+        max-width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        transition: all 0.3s ease;
     }
-  }
+
+    .floating-window.minimized .window-content {
+        display: none;
+    }
+
+    .floating-window.minimized {
+        max-height: auto;
+        height: auto;
+    }
+
+    @keyframes windowSlideIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -48%) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    .floating-window.closing {
+        animation: windowSlideOut 0.3s ease forwards;
+    }
+
+    @keyframes windowSlideOut {
+        from {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: translate(-50%, -48%) scale(0.95);
+        }
+    }
+
+    .window-header {
+        background: rgba(192, 176, 255, 0.1);
+        border-bottom: 1px solid rgba(192, 176, 255, 0.2);
+        padding: 0.75rem 1.5rem;
+        border-radius: 1rem 1rem 0 0;
+        cursor: move;
+        user-select: none;
+        flex-shrink: 0;
+    }
+
+    .floating-window.maximized .window-header {
+        border-radius: 0;
+    }
+
+    .window-content {
+        flex: 1;
+        min-height: 0;
+        position: relative;
+        overflow: hidden;
+        padding: 1.5rem;
+    }
+
+    .window-inner {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 0.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(192, 176, 255, 0.5) rgba(192, 176, 255, 0.1);
+    }
+
+    .window-inner::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .window-inner::-webkit-scrollbar-track {
+        background: rgba(192, 176, 255, 0.08);
+        border-radius: 5px;
+    }
+
+    .window-inner::-webkit-scrollbar-thumb {
+        background: rgba(192, 176, 255, 0.5);
+        border-radius: 5px;
+        border: 2px solid rgba(26, 22, 37, 0.5);
+    }
+
+    .window-inner::-webkit-scrollbar-thumb:hover {
+        background: rgba(192, 176, 255, 0.7);
+    }
+
+    /* Remove nested terminal window styles within modal content */
+    .window-content :global(.terminal-body) {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .window-content :global(.terminal-body::before) {
+        display: none !important;
+    }
+
+    .window-content :global(section) {
+        margin: 0 !important;
+    }
+
+    .terminal-dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+    }
+
+    .terminal-dot:hover {
+        transform: scale(1.2);
+    }
+
+    .terminal-dot-red {
+        background: #ffaddb;
+    }
+
+    .terminal-dot-red:hover {
+        box-shadow: 0 0 8px rgba(255, 173, 219, 0.6);
+    }
+
+    .terminal-dot-yellow {
+        background: #fff280;
+    }
+
+    .terminal-dot-yellow:hover {
+        box-shadow: 0 0 8px rgba(255, 242, 128, 0.6);
+    }
+
+    .terminal-dot-green {
+        background: #a8e6bf;
+    }
+
+    .terminal-dot-green:hover {
+        box-shadow: 0 0 8px rgba(168, 230, 191, 0.6);
+    }
+
+    @media (max-width: 768px) {
+        .floating-window {
+            width: 95%;
+            max-height: 90vh;
+        }
+
+        .window-content {
+            padding: 1rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .floating-window {
+            animation: none;
+        }
+
+        .floating-window.closing {
+            animation: none;
+        }
+
+        .floating-window.maximized {
+            transition: none;
+        }
+    }
 </style>
