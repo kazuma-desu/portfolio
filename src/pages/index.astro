@@ -1,87 +1,299 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import TerminalHeader from '../components/TerminalHeader.astro';
-import Navigation from '../components/Navigation.astro';
-import Hero from '../components/Hero.astro';
-import Skills from '../components/Skills.astro';
-import Experience from '../components/Experience.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import LandingPage from "../components/LandingPage.astro";
+import CommandPalette from "../components/CommandPalette.astro";
+import FloatingWindow from "../components/FloatingWindow.astro";
 ---
 
 <Layout title="Kavintha Kulasingham | DevOps Engineer">
-  <main class="min-h-screen py-12 px-4">
-    <div class="terminal-window">
-      <TerminalHeader />
-      <div class="terminal-body">
-        <Navigation />
-        <Hero />
-        <div class="section-divider"></div>
-        <Skills />
-        <div class="section-divider"></div>
-        <Experience />
-        <div class="section-divider"></div>
-        <Contact />
-      </div>
-      <Footer />
-    </div>
-  </main>
+    <LandingPage />
+    <CommandPalette />
+    <FloatingWindow />
 </Layout>
 
 <script>
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
-    anchor.addEventListener('click', (e: Event) => {
-      e.preventDefault();
-      const href = (anchor as HTMLAnchorElement).getAttribute('href') || '';
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+    // Command palette state
+    let selectedIndex = 0;
+    const overlay = document.getElementById("commandPaletteOverlay");
+    const searchInput = document.getElementById(
+        "commandSearch",
+    ) as HTMLInputElement;
+    const commandList = document.getElementById("commandList");
+    const ctrlButton = document.getElementById("ctrlButton");
+    const closePaletteBtn = document.getElementById("closePaletteBtn");
+
+    // Window management
+    let activeWindow: HTMLElement | null = null;
+    let zIndexCounter = 1000;
+    let isDragging = false;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+
+    function getVisibleItems(): HTMLElement[] {
+        return Array.from(
+            commandList?.querySelectorAll(".command-item:not(.hidden)") || [],
+        ) as HTMLElement[];
+    }
+
+    function updateSelection(newIndex: number) {
+        const items = getVisibleItems();
+        if (items.length === 0) return;
+
+        // Remove previous selection
+        items.forEach((item) => item.classList.remove("selected"));
+
+        // Clamp index
+        selectedIndex = Math.max(0, Math.min(newIndex, items.length - 1));
+
+        // Add new selection
+        items[selectedIndex]?.classList.add("selected");
+        items[selectedIndex]?.scrollIntoView({
+            block: "nearest",
+            behavior: "smooth",
         });
-      }
-    });
-  });
+    }
 
-  // Intersection Observer for scroll-based animations
-  document.addEventListener('DOMContentLoaded', () => {
-    // Create observer for fade-in animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    function openPalette() {
+        overlay?.classList.add("active");
+        searchInput?.focus();
+        selectedIndex = 0;
+        updateSelection(0);
+    }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          // Add stagger delay based on index
-          const element = entry.target as HTMLElement;
-          const delay = parseInt(element.dataset.delay || '0');
+    function closePalette() {
+        overlay?.classList.remove("active");
+        if (searchInput) searchInput.value = "";
+        filterItems("");
+    }
 
-          setTimeout(() => {
-            element.classList.add('animate-in');
-          }, delay);
+    function filterItems(query: string) {
+        const items = commandList?.querySelectorAll(".command-item") || [];
+        const lowerQuery = query.toLowerCase();
 
-          observer.unobserve(entry.target);
+        items.forEach((item) => {
+            const label =
+                item
+                    .querySelector(".command-label")
+                    ?.textContent?.toLowerCase() || "";
+            if (label.includes(lowerQuery)) {
+                item.classList.remove("hidden");
+            } else {
+                item.classList.add("hidden");
+            }
+        });
+
+        // Reset selection to first visible item
+        selectedIndex = 0;
+        updateSelection(0);
+    }
+
+    function openWindow(sectionId: string) {
+        const windowEl = document.getElementById(`window-${sectionId}`);
+        if (!windowEl) return;
+
+        // Close command palette
+        closePalette();
+
+        // Show window
+        windowEl.classList.add("active");
+        activeWindow = windowEl;
+
+        // Bring to front
+        zIndexCounter++;
+        windowEl.style.zIndex = zIndexCounter.toString();
+    }
+
+    function closeWindow(windowEl: HTMLElement) {
+        windowEl.classList.add("closing");
+
+        setTimeout(() => {
+            windowEl.classList.remove(
+                "active",
+                "closing",
+                "maximized",
+                "minimized",
+            );
+            if (activeWindow === windowEl) {
+                activeWindow = null;
+            }
+        }, 300);
+    }
+
+    function minimizeWindow(windowEl: HTMLElement) {
+        windowEl.classList.toggle("minimized");
+    }
+
+    function maximizeWindow(windowEl: HTMLElement) {
+        windowEl.classList.toggle("maximized");
+    }
+
+    function selectCurrentItem() {
+        const items = getVisibleItems();
+        const currentItem = items[selectedIndex];
+        if (currentItem) {
+            const sectionId = currentItem.dataset.section;
+            if (sectionId) {
+                openWindow(sectionId);
+            }
         }
-      });
-    }, observerOptions);
+    }
 
-    // Observe all cards with stagger effect
-    document.querySelectorAll('.terminal-card, .terminal-card-alt, .terminal-card-success, .terminal-card-highlight').forEach((card, index) => {
-      (card as HTMLElement).dataset.delay = (index * 50).toString();
-      card.classList.add('fade-out');
-      observer.observe(card);
+    // Event listeners
+    ctrlButton?.addEventListener("click", openPalette);
+    closePaletteBtn?.addEventListener("click", closePalette);
+
+    // Click on overlay background to close
+    overlay?.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+            closePalette();
+        }
     });
 
-    // Observe sections
-    document.querySelectorAll('section').forEach((section) => {
-      section.classList.add('fade-out');
-      observer.observe(section);
+    // Command item clicks
+    commandList?.addEventListener("click", (e) => {
+        const item = (e.target as HTMLElement).closest(
+            ".command-item",
+        ) as HTMLElement;
+        if (item) {
+            const sectionId = item.dataset.section;
+            if (sectionId) {
+                openWindow(sectionId);
+            }
+        }
     });
-  });
+
+    // Search input
+    searchInput?.addEventListener("input", (e) => {
+        const query = (e.target as HTMLInputElement).value;
+        filterItems(query);
+    });
+
+    // Window controls
+    document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        const action = target.dataset.action;
+
+        if (action) {
+            const windowEl = target.closest(".floating-window") as HTMLElement;
+            if (!windowEl) return;
+
+            switch (action) {
+                case "close":
+                    closeWindow(windowEl);
+                    break;
+                case "minimize":
+                    minimizeWindow(windowEl);
+                    break;
+                case "maximize":
+                    maximizeWindow(windowEl);
+                    break;
+            }
+        }
+    });
+
+    // Dragging functionality
+    let currentDragWindow: HTMLElement | null = null;
+
+    document.addEventListener("mousedown", (e) => {
+        const target = e.target as HTMLElement;
+        const dragHandle = target.closest("[data-drag-handle]");
+
+        if (dragHandle) {
+            const windowEl = dragHandle.closest(
+                ".floating-window",
+            ) as HTMLElement;
+            if (!windowEl || windowEl.classList.contains("maximized")) return;
+
+            isDragging = true;
+            currentDragWindow = windowEl;
+
+            const rect = windowEl.getBoundingClientRect();
+            dragOffsetX = e.clientX - rect.left;
+            dragOffsetY = e.clientY - rect.top;
+
+            // Bring to front
+            zIndexCounter++;
+            windowEl.style.zIndex = zIndexCounter.toString();
+
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging || !currentDragWindow) return;
+
+        const x = e.clientX - dragOffsetX;
+        const y = e.clientY - dragOffsetY;
+
+        currentDragWindow.style.left = `${x}px`;
+        currentDragWindow.style.top = `${y}px`;
+        currentDragWindow.style.transform = "none";
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        currentDragWindow = null;
+    });
+
+    // Click on window to bring to front
+    document.addEventListener("mousedown", (e) => {
+        const windowEl = (e.target as HTMLElement).closest(
+            ".floating-window",
+        ) as HTMLElement;
+        if (windowEl && windowEl.classList.contains("active")) {
+            zIndexCounter++;
+            windowEl.style.zIndex = zIndexCounter.toString();
+        }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (e: KeyboardEvent) => {
+        // Ctrl+/ to toggle palette
+        if (e.ctrlKey && e.key === "/") {
+            e.preventDefault();
+            if (overlay?.classList.contains("active")) {
+                closePalette();
+            } else {
+                openPalette();
+            }
+            return;
+        }
+
+        // ESC key handling
+        if (e.key === "Escape") {
+            e.preventDefault();
+
+            // First check if command palette is open
+            if (overlay?.classList.contains("active")) {
+                closePalette();
+                return;
+            }
+
+            // Otherwise close the most recently opened window
+            if (activeWindow) {
+                closeWindow(activeWindow);
+                return;
+            }
+        }
+
+        // Only handle these keys when palette is open
+        if (!overlay?.classList.contains("active")) return;
+
+        switch (e.key) {
+            case "ArrowDown":
+                e.preventDefault();
+                updateSelection(selectedIndex + 1);
+                break;
+
+            case "ArrowUp":
+                e.preventDefault();
+                updateSelection(selectedIndex - 1);
+                break;
+
+            case "Enter":
+                e.preventDefault();
+                selectCurrentItem();
+                break;
+        }
+    });
 </script>

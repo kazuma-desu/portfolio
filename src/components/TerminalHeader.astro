@@ -1,164 +1,155 @@
 ---
 interface Props {
-  title?: string;
+    title?: string;
 }
 
 const { title = "kavintha@devops: ~/portfolio" } = Astro.props;
 ---
 
 <div class="terminal-header">
-  <div class="flex items-center justify-between w-full">
-    <div class="flex gap-2">
-      <button
-        id="close-btn"
-        class="terminal-dot terminal-dot-red cursor-pointer"
-        aria-label="Close terminal"
-        title="Close"></button>
-      <button
-        id="minimize-btn"
-        class="terminal-dot terminal-dot-yellow cursor-pointer"
-        aria-label="Minimize terminal"
-        title="Minimize"></button>
-      <button
-        id="maximize-btn"
-        class="terminal-dot terminal-dot-green cursor-pointer"
-        aria-label="Maximize terminal"
-        title="Maximize"></button>
+    <div class="flex items-center justify-between w-full">
+        <div class="flex gap-2">
+            <button
+                id="close-btn"
+                class="terminal-dot terminal-dot-red cursor-pointer"
+                aria-label="Close terminal"
+                title="Close"></button>
+            <button
+                id="minimize-btn"
+                class="terminal-dot terminal-dot-yellow cursor-pointer"
+                aria-label="Minimize terminal"
+                title="Minimize"></button>
+            <button
+                id="maximize-btn"
+                class="terminal-dot terminal-dot-green cursor-pointer"
+                aria-label="Maximize terminal"
+                title="Maximize"></button>
+        </div>
+        <div class="flex-1 text-center text-terminal-100/70 text-sm font-mono">
+            {title}
+        </div>
+        <div class="w-16"></div>
     </div>
-    <div class="flex-1 text-center text-terminal-100/70 text-sm font-mono">
-      {title}
-    </div>
-    <div class="w-16"></div>
-  </div>
 </div>
 
 <script>
-  // Close button - shows confirmation dialog
-  const closeBtn = document.getElementById("close-btn");
-  closeBtn?.addEventListener("click", () => {
-    const confirmed = confirm("Are you sure you want to close this terminal?");
-    if (confirmed) {
-      // Create a fade-out effect
-      document.body.style.opacity = "0";
-      document.body.style.transition = "opacity 0.3s ease-out";
+    // Close button - returns to landing page with fade animation
+    const closeBtn = document.getElementById("close-btn");
+    closeBtn?.addEventListener("click", () => {
+        // Create a fade-out effect
+        document.body.style.opacity = "0";
+        document.body.style.transition = "opacity 0.5s ease-out";
 
-      setTimeout(() => {
-        // Option 1: Close the tab (may not work in all browsers due to security)
-        // window.close();
-
-        // Option 2: Redirect to a goodbye page
-        window.location.href = "about:blank";
-
-        // Option 3: Show a "session closed" message
-        // document.body.innerHTML = '<div class="flex items-center justify-center min-h-screen bg-terminal-900 text-terminal-100"><div class="text-center"><i class="fas fa-terminal text-6xl mb-4 text-terminal-accent"></i><h1 class="text-3xl font-bold">Terminal Closed</h1><p class="mt-4 text-terminal-100/60">Thanks for visiting!</p></div></div>';
-      }, 300);
-    }
-  });
-
-  // Minimize button - collapses content
-  const minimizeBtn = document.getElementById("minimize-btn");
-  let isMinimized = false;
-
-  minimizeBtn?.addEventListener("click", () => {
-    const terminalBodies = document.querySelectorAll(".terminal-body");
-    const footer = document.querySelector("footer");
-
-    isMinimized = !isMinimized;
-
-    terminalBodies.forEach((body) => {
-      if (isMinimized) {
-        (body as HTMLElement).style.maxHeight = "0";
-        (body as HTMLElement).style.overflow = "hidden";
-        (body as HTMLElement).style.padding = "0";
-        (body as HTMLElement).style.marginBottom = "0";
-        (body as HTMLElement).style.opacity = "0";
-        (body as HTMLElement).style.transition = "all 0.3s ease-out";
-      } else {
-        (body as HTMLElement).style.maxHeight = "";
-        (body as HTMLElement).style.overflow = "";
-        (body as HTMLElement).style.padding = "";
-        (body as HTMLElement).style.marginBottom = "";
-        (body as HTMLElement).style.opacity = "1";
-      }
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 500);
     });
 
-    if (footer) {
-      if (isMinimized) {
-        (footer as HTMLElement).style.maxHeight = "0";
-        (footer as HTMLElement).style.overflow = "hidden";
-        (footer as HTMLElement).style.opacity = "0";
-        (footer as HTMLElement).style.transition = "all 0.3s ease-out";
-      } else {
-        (footer as HTMLElement).style.maxHeight = "";
-        (footer as HTMLElement).style.overflow = "";
-        (footer as HTMLElement).style.opacity = "1";
-      }
-    }
-  });
+    // Minimize button - collapses content
+    const minimizeBtn = document.getElementById("minimize-btn");
+    let isMinimized = false;
 
-  // Maximize button - toggles fullscreen
-  const maximizeBtn = document.getElementById("maximize-btn");
-  let isMaximized = false;
+    minimizeBtn?.addEventListener("click", () => {
+        const terminalBodies = document.querySelectorAll(".terminal-body");
+        const footer = document.querySelector("footer");
 
-  maximizeBtn?.addEventListener("click", () => {
-    const terminalWindow = document.querySelector(".terminal-window");
+        isMinimized = !isMinimized;
 
-    isMaximized = !isMaximized;
-
-    if (isMaximized) {
-      // Maximize: full width, no padding
-      (terminalWindow as HTMLElement).style.maxWidth = "100%";
-      (terminalWindow as HTMLElement).style.padding = "0";
-      (terminalWindow as HTMLElement).style.transition = "all 0.3s ease-out";
-
-      // Try to enter fullscreen mode
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {
-          // Fullscreen failed, just maximize within viewport
+        terminalBodies.forEach((body) => {
+            if (isMinimized) {
+                (body as HTMLElement).style.maxHeight = "0";
+                (body as HTMLElement).style.overflow = "hidden";
+                (body as HTMLElement).style.padding = "0";
+                (body as HTMLElement).style.marginBottom = "0";
+                (body as HTMLElement).style.opacity = "0";
+                (body as HTMLElement).style.transition = "all 0.3s ease-out";
+            } else {
+                (body as HTMLElement).style.maxHeight = "";
+                (body as HTMLElement).style.overflow = "";
+                (body as HTMLElement).style.padding = "";
+                (body as HTMLElement).style.marginBottom = "";
+                (body as HTMLElement).style.opacity = "1";
+            }
         });
-      }
-    } else {
-      // Restore: original styling
-      (terminalWindow as HTMLElement).style.maxWidth = "";
-      (terminalWindow as HTMLElement).style.padding = "";
 
-      // Exit fullscreen mode
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      }
-    }
-  });
+        if (footer) {
+            if (isMinimized) {
+                (footer as HTMLElement).style.maxHeight = "0";
+                (footer as HTMLElement).style.overflow = "hidden";
+                (footer as HTMLElement).style.opacity = "0";
+                (footer as HTMLElement).style.transition = "all 0.3s ease-out";
+            } else {
+                (footer as HTMLElement).style.maxHeight = "";
+                (footer as HTMLElement).style.overflow = "";
+                (footer as HTMLElement).style.opacity = "1";
+            }
+        }
+    });
 
-  // Listen for fullscreen changes (user pressing Esc)
-  document.addEventListener("fullscreenchange", () => {
-    if (!document.fullscreenElement && isMaximized) {
-      // User exited fullscreen, restore window
-      isMaximized = false;
-      const terminalWindow = document.querySelector(".terminal-window");
-      (terminalWindow as HTMLElement).style.maxWidth = "";
-      (terminalWindow as HTMLElement).style.padding = "";
-    }
-  });
+    // Maximize button - toggles fullscreen
+    const maximizeBtn = document.getElementById("maximize-btn");
+    let isMaximized = false;
+
+    maximizeBtn?.addEventListener("click", () => {
+        const terminalWindow = document.querySelector(".terminal-window");
+
+        isMaximized = !isMaximized;
+
+        if (isMaximized) {
+            // Maximize: full width, no padding
+            (terminalWindow as HTMLElement).style.maxWidth = "100%";
+            (terminalWindow as HTMLElement).style.padding = "0";
+            (terminalWindow as HTMLElement).style.transition =
+                "all 0.3s ease-out";
+
+            // Try to enter fullscreen mode
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {
+                    // Fullscreen failed, just maximize within viewport
+                });
+            }
+        } else {
+            // Restore: original styling
+            (terminalWindow as HTMLElement).style.maxWidth = "";
+            (terminalWindow as HTMLElement).style.padding = "";
+
+            // Exit fullscreen mode
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        }
+    });
+
+    // Listen for fullscreen changes (user pressing Esc)
+    document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement && isMaximized) {
+            // User exited fullscreen, restore window
+            isMaximized = false;
+            const terminalWindow = document.querySelector(".terminal-window");
+            (terminalWindow as HTMLElement).style.maxWidth = "";
+            (terminalWindow as HTMLElement).style.padding = "";
+        }
+    });
 </script>
 
 <style>
-  .terminal-dot {
-    transition: transform 0.2s ease;
-  }
+    .terminal-dot {
+        transition: transform 0.2s ease;
+    }
 
-  .terminal-dot:hover {
-    transform: scale(1.2);
-  }
+    .terminal-dot:hover {
+        transform: scale(1.2);
+    }
 
-  .terminal-dot-red:hover {
-    box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
-  }
+    .terminal-dot-red:hover {
+        box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+    }
 
-  .terminal-dot-yellow:hover {
-    box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
-  }
+    .terminal-dot-yellow:hover {
+        box-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+    }
 
-  .terminal-dot-green:hover {
-    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
-  }
+    .terminal-dot-green:hover {
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+    }
 </style>
