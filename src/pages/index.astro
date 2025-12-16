@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import StatusBar from "../components/StatusBar.astro";
 import LandingPage from "../components/LandingPage.astro";
 import CommandPalette from "../components/CommandPalette.astro";
 import FloatingWindow from "../components/FloatingWindow.astro";
 ---
 
 <Layout title="Kavintha Kulasingham | DevOps Engineer">
+    <StatusBar />
     <LandingPage />
     <CommandPalette />
     <FloatingWindow />
@@ -243,8 +245,24 @@ import FloatingWindow from "../components/FloatingWindow.astro";
         if (windowEl && windowEl.classList.contains("active")) {
             zIndexCounter++;
             windowEl.style.zIndex = zIndexCounter.toString();
+            activeWindow = windowEl;
         }
     });
+
+    // Handle focus window event from status bar
+    document.addEventListener("focusWindow", ((e: CustomEvent) => {
+        const windowEl = document.getElementById(e.detail.windowId);
+        if (windowEl && windowEl.classList.contains("active")) {
+            zIndexCounter++;
+            windowEl.style.zIndex = zIndexCounter.toString();
+            activeWindow = windowEl;
+
+            // Remove minimized state if present
+            if (windowEl.classList.contains("minimized")) {
+                windowEl.classList.remove("minimized");
+            }
+        }
+    }) as EventListener);
 
     // Keyboard shortcuts
     document.addEventListener("keydown", (e: KeyboardEvent) => {
