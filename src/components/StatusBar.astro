@@ -19,7 +19,7 @@
     <!-- Right: Weather and System Info -->
     <div class="status-section status-right">
         <div class="status-item weather" id="weatherInfo">
-            <span class="weather-icon" id="weatherIcon">☀</span>
+            <i class="wi wi-day-sunny" id="weatherIcon"></i>
             <span id="weatherTemp">--°C</span>
         </div>
         <div class="status-item cpu">
@@ -177,14 +177,10 @@
         font-size: 0.7rem;
     }
 
-    .weather-icon {
-        font-family:
-            "Segoe UI Symbol", "Apple Color Emoji", "Noto Color Emoji",
-            sans-serif;
-        font-size: 0.85rem;
-        font-style: normal;
+    #weatherIcon {
+        font-size: 1rem;
         line-height: 1;
-        color: rgba(205, 214, 244, 0.9);
+        color: rgba(205, 214, 244, 0.95);
     }
 
     .network-dot {
@@ -294,25 +290,39 @@
             }
 
             if (weatherIconEl) {
-                // Weather code mapping (WMO codes) - using Unicode symbols (not emoji variants)
-                let icon = "☀"; // Default: Sun
-                if (weatherCode === 0)
-                    icon = "☀"; // Clear sky
-                else if (weatherCode === 1)
-                    icon = "🌤"; // Mainly clear
-                else if (weatherCode === 2)
-                    icon = "⛅"; // Partly cloudy
-                else if (weatherCode === 3)
-                    icon = "☁"; // Overcast
-                else if (weatherCode >= 45 && weatherCode <= 48)
-                    icon = "🌫"; // Fog
-                else if (weatherCode >= 51 && weatherCode <= 67)
-                    icon = "🌧"; // Rain
-                else if (weatherCode >= 71 && weatherCode <= 77)
-                    icon = "❄"; // Snow
-                else if (weatherCode >= 80 && weatherCode <= 99) icon = "⛈"; // Thunderstorm
+                // Weather code mapping (WMO codes) - using weather-icons classes
+                let iconClass = "wi-day-sunny"; // Default: Clear day
 
-                weatherIconEl.textContent = icon;
+                if (weatherCode === 0)
+                    iconClass = "wi-day-sunny"; // Clear sky
+                else if (weatherCode === 1)
+                    iconClass = "wi-day-sunny-overcast"; // Mainly clear
+                else if (weatherCode === 2)
+                    iconClass = "wi-day-cloudy"; // Partly cloudy
+                else if (weatherCode === 3)
+                    iconClass = "wi-cloudy"; // Overcast
+                else if (weatherCode >= 45 && weatherCode <= 48)
+                    iconClass = "wi-fog"; // Fog
+                else if (weatherCode >= 51 && weatherCode <= 55)
+                    iconClass = "wi-sprinkle"; // Drizzle
+                else if (weatherCode >= 56 && weatherCode <= 57)
+                    iconClass = "wi-rain-mix"; // Freezing drizzle
+                else if (weatherCode >= 61 && weatherCode <= 65)
+                    iconClass = "wi-rain"; // Rain
+                else if (weatherCode >= 66 && weatherCode <= 67)
+                    iconClass = "wi-rain-mix"; // Freezing rain
+                else if (weatherCode >= 71 && weatherCode <= 75)
+                    iconClass = "wi-snow"; // Snow
+                else if (weatherCode === 77)
+                    iconClass = "wi-snow-wind"; // Snow grains
+                else if (weatherCode >= 80 && weatherCode <= 82)
+                    iconClass = "wi-showers"; // Rain showers
+                else if (weatherCode >= 85 && weatherCode <= 86)
+                    iconClass = "wi-snow"; // Snow showers
+                else if (weatherCode >= 95 && weatherCode <= 99)
+                    iconClass = "wi-thunderstorm"; // Thunderstorm
+
+                weatherIconEl.className = "wi " + iconClass;
             }
         } catch (error) {
             console.error("Failed to fetch weather:", error);
