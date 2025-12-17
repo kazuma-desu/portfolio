@@ -1,0 +1,111 @@
+---
+
+---
+
+<div class="landing-container">
+    <button class="ctrl-button" id="ctrlButton">
+        <span class="key-text">ctrl</span>
+        <span class="plus">+</span>
+        <span class="key-text">/</span>
+    </button>
+    <p class="hint-text">Press to open command palette</p>
+</div>
+
+<style>
+    .landing-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        gap: 2rem;
+        padding-top: 2.75rem; /* Account for status bar */
+    }
+
+    .ctrl-button {
+        background: linear-gradient(
+            135deg,
+            rgba(180, 190, 254, 0.15),
+            rgba(245, 194, 231, 0.1)
+        );
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(180, 190, 254, 0.3);
+        border-radius: 1.5rem;
+        padding: 4rem 6rem;
+        font-size: 5rem;
+        color: #cdd6f4;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Monaspace Neon", monospace;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        box-shadow:
+            0 0 30px rgba(180, 190, 254, 0.2),
+            inset 0 0 20px rgba(180, 190, 254, 0.05);
+    }
+
+    .ctrl-button:hover {
+        transform: scale(1.05) translateY(-5px);
+        border-color: rgba(180, 190, 254, 0.6);
+        box-shadow:
+            0 0 50px rgba(180, 190, 254, 0.4),
+            inset 0 0 30px rgba(180, 190, 254, 0.1);
+    }
+
+    .ctrl-button:active {
+        transform: scale(0.98);
+    }
+
+    .key-text {
+        font-weight: 600;
+        text-shadow: 0 0 20px rgba(180, 190, 254, 0.5);
+    }
+
+    .plus {
+        font-size: 4rem;
+        opacity: 0.7;
+    }
+
+    .hint-text {
+        color: rgba(180, 190, 254, 0.6);
+        font-size: 1.25rem;
+        font-family: "Monaspace Neon", monospace;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 0.6;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .ctrl-button {
+            padding: 3rem 4rem;
+            font-size: 3.5rem;
+            gap: 1rem;
+        }
+
+        .plus {
+            font-size: 3rem;
+        }
+
+        .hint-text {
+            font-size: 1rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hint-text {
+            animation: none;
+        }
+        .ctrl-button:hover {
+            transform: none;
+        }
+    }
+</style>
