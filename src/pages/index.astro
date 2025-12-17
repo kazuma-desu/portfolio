@@ -198,6 +198,9 @@ import Layout from "../layouts/Layout.astro";
 
     document.addEventListener("mousedown", (e) => {
         const target = e.target as HTMLElement;
+        if (target.closest("[data-action]")) {
+            return;
+        }
         const dragHandle = target.closest("[data-drag-handle]");
 
         if (dragHandle) {
@@ -224,12 +227,18 @@ import Layout from "../layouts/Layout.astro";
     document.addEventListener("mousemove", (e) => {
         if (!isDragging || !currentDragWindow) return;
 
-        const x = e.clientX - dragOffsetX;
-        const y = e.clientY - dragOffsetY;
+        const windowHeight = currentDragWindow.offsetHeight;
+        const windowWidth = currentDragWindow.offsetWidth;
+
+        const x = e.clientX - dragOffsetX + windowWidth/2;
+        const y = e.clientY - dragOffsetY + windowHeight/2;
 
         currentDragWindow.style.left = `${x}px`;
         currentDragWindow.style.top = `${y}px`;
         currentDragWindow.style.transform = "none";
+
+        // You can now use windowHeight as needed
+        // console.log("Window height:", windowHeight);
     });
 
     document.addEventListener("mouseup", () => {
