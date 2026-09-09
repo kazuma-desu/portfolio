@@ -1,11 +1,9 @@
 # Security headers — honored by Netlify and Cloudflare Pages.
 # For other static hosts, replicate these in the host's config.
-# The Content-Security-Policy below mirrors the <meta> CSP in src/layouts/Layout.astro;
-# keep both in sync when changing either. The script-src sha256 hashes cover Astro's
-# inlined module scripts — they MUST be recomputed after any change to component/page
-# <script> blocks, or those scripts will be blocked.
+# Resource directives come from Astro's generated meta CSP (astro.config security.csp).
+# _headers only carries frame-ancestors because meta-delivered CSP cannot express it.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-WxeCItPclXtSW9BLD0C4gUIRU722Cxf00Bv/DZIEWaE=' 'sha256-gff8pAvjFhGVLcYKnzgUnHpRST22clqXeIcr+8Z5ZwI=' 'sha256-xJrSliWE4OLoMHaP9vnCenVEAbl8BLfHwYgnObk0RaA='; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://api.open-meteo.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: frame-ancestors 'none'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
